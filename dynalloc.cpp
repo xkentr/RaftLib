@@ -78,8 +78,8 @@ dynalloc::run()
       }
       else
       {
-         fifo = test_func( 64 /* items */, 
-                           16 /* align */, 
+         fifo = test_func( 4  /* items */, 
+                           64 /* align */, 
                            nullptr );
       }
       assert( fifo != nullptr );
@@ -107,7 +107,7 @@ dynalloc::run()
       if( realized_ratio >= ratio )
       {
          const auto curr_count( size_map[ hash_val ]++ );
-         if( curr_count  == 2 )
+         if( curr_count  == 1 )
          {
             /** get initializer function **/
             auto * const buff_ptr( a.getFIFO() );
