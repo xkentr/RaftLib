@@ -48,7 +48,6 @@ endif( NOT L1D_LINE_SIZE )
 ##
 add_definitions( "-DL1D_CACHE_LINE_SIZE=${L1D_LINE_SIZE}" ) 
 
-include( CheckGitDep )
 
 add_subdirectory( src )
 add_subdirectory( raftinc )
@@ -61,10 +60,12 @@ if( BUILD_WOPENCV )
 endif( BUILD_WOPENCV )
 
 ##
-# Set up unit tests
+# Set unit tests
 ##
-enable_testing()
-add_subdirectory( testsuite )
+if( BUILD_RAFTLIB_TESTS )
+    enable_testing()
+    add_subdirectory( testsuite )
+endif()
 
 ##
 # install main headers in ${prefix}/include dir
