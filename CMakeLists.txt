@@ -6,44 +6,16 @@ list( APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake )
 
 include( CheckSTD )
 
-##
-# check for Scotch, use if there
-##
-find_package( Scotch )
 option( USESCOTCH "Use Scotch partitioning library" )
+find_package( Scotch )
 
 option( USEQTHREAD "Use QThread threading library" false )
 find_package( QThreads )
-
-set( HELPER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/helpers )
-
-##
-# helper exec to get the L1 cache size from Linux/OS X/Win
-##
-execute_process( COMMAND ${CMAKE_CXX_COMPILER} ${HELPER_DIR}/cacheinfo.cpp -o ${HELPER_DIR}/cacheinfo)
-execute_process( COMMAND ${HELPER_DIR}/cacheinfo 
-                 COMMAND tr -d '\n' 
-                 OUTPUT_VARIABLE L1D_LINE_SIZE )
-execute_process( COMMAND rm -f ${HELPER_DIR}/cacheinfo )                 
-
-if( NOT L1D_LINE_SIZE )
-    set( L1D_LINE_SIZE 64 )
-    message( INFO " Couldn't detect cache line size, set to: ${L1D_LINE_SIZE}" )
-else( NOT L1D_LINE_SIZE )
-    message( INFO " Detected cache line size, set to: ${L1D_LINE_SIZE}" )
-endif( NOT L1D_LINE_SIZE )
-
-##
-# for cache line size
-##
-add_definitions( "-DL1D_CACHE_LINE_SIZE=${L1D_LINE_SIZE}" ) 
-
 
 add_subdirectory( src )
 add_subdirectory( raftinc )
 add_subdirectory( examples )
 add_subdirectory( benchmarks )
-
 
 option(RAFTLIB_BuildTests "Build the RaftLib tests" OFF)
 if( RAFTLIB_BuildTests )
