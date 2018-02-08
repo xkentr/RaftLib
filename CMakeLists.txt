@@ -4,12 +4,7 @@ set( version 0.7a )
 set( CMAKE_INCLUDE_CURRENT_DIR ON )
 list( APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake )
 
-include(CheckCXXCompilerFlag)
-CHECK_CXX_COMPILER_FLAG("-faligned-new" HAS_ALIGNED_NEW)
-if (HAS_ALIGNED_NEW)
-    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -faligned-new")
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_RELEASE} -faligned-new")
-endif()
+include( CheckSTD )
 
 ##
 # check for Scotch, use if there
@@ -19,11 +14,6 @@ option( USESCOTCH "Use Scotch partitioning library" )
 
 option( USEQTHREAD "Use QThread threading library" false )
 find_package( QThreads )
-
-##
-# c std
-##
-include( CheckSTD )
 
 set( HELPER_DIR ${CMAKE_CURRENT_SOURCE_DIR}/helpers )
 
@@ -54,15 +44,9 @@ add_subdirectory( raftinc )
 add_subdirectory( examples )
 add_subdirectory( benchmarks )
 
-mark_as_advanced( BUILD_WOPENCV false )
-if( BUILD_WOPENCV )
-    add_subdirectory( examples/opencv )
-endif( BUILD_WOPENCV )
 
-##
-# Set unit tests
-##
-if( BUILD_RAFTLIB_TESTS )
+option(RAFTLIB_BuildTests "Build the RaftLib tests" OFF)
+if( RAFTLIB_BuildTests )
     enable_testing()
     add_subdirectory( testsuite )
 endif()

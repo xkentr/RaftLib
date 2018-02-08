@@ -1,19 +1,3 @@
-list( APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake )
-
-find_package( Threads )
-##
-# c/c++ std
-##
-include( CheckSTD )
-
-find_package( LIBRT )
-##
-# check for Scotch, use if there
-##
-find_package( Scotch )
-
-
-
 set( TESTAPPS allocate 
     portTypeException dynallocate stdlibsupport split 
      join lambdatest allocate_s foreach peekrange  
@@ -59,11 +43,7 @@ endif( BUILDRANDOM )
 
 foreach( APP ${TESTAPPS} )
  add_executable( ${APP} "${APP}.cpp" )
- target_link_libraries( ${APP} raft  ${CMAKE_THREAD_LIBS_INIT} 
-                                     ${CMAKE_SCOTCH_LIBS}
-                                     ${CMAKE_RT_LIBS} 
-                                     ${CMAKE_QTHREAD_LIBS}
-                                     )
+ target_link_libraries( ${APP} raft )
  add_test( NAME "${APP}_test" COMMAND ${APP} )
 endforeach( APP ${TESTAPPS} )
 

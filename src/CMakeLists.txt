@@ -46,14 +46,13 @@ target_include_directories(raft
     PUBLIC 
     ${PROJECT_SOURCE_DIR}/raftinc 
     ${PROJECT_SOURCE_DIR}
-    ${CMAKE_SCOTCH_INCS}
-    ${CMAKE_QTHREAD_INCS}
 )
 
-target_link_libraries( 
-                       raft 
+target_link_libraries(raft PUBLIC 
                        ${CMAKE_SCOTCH_LIBS}
                        ${CMAKE_QTHREAD_LIBS} 
+                       ${CMAKE_THREAD_LIBS_INIT} 
+                       ${CMAKE_RT_LIBS}
                      )
 
 
