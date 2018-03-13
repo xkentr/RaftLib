@@ -84,7 +84,7 @@ if ( "${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang"
   OR "${CMAKE_CXX_COMPILER_ID}" MATCHES "GNU" )
 
 target_compile_options( raft
-                        PUBLIC
+                        PRIVATE
                         "-W" "-Wall" "-Wextra" "-Wpedantic" )
 
 endif()

@@ -12,6 +12,9 @@ find_package( Scotch )
 option( USEQTHREAD "Use QThread threading library" false )
 find_package( QThreads )
 
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+find_package( Threads )
+
 add_subdirectory( src )
 add_subdirectory( raftinc )
 add_subdirectory( examples )
