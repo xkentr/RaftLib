@@ -125,15 +125,22 @@ Schedule::kernelHasInputData( raft::kernel *kernel )
       /** only output ports, keep calling till exits **/
       return( true );
    }
-   for( auto &port : port_list )
+   bool allInputs = true;
+   for ( auto &port : port_list )
    {
       const auto size( port.size() );
-      if( size > 0 )
-      {
-         return( true );
-      }
+      allInputs = allInputs && ( size > 0 );
    }
-   return( false );
+   return( allInputs );
+   //   for( auto &port : port_list )
+   //   {
+   //      const auto size( port.size() );
+   //      if( size > 0 )
+   //      {
+   //         return( true );
+   //      }
+   //   }
+   //   return( false );
 }
 
 
