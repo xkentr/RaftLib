@@ -90,4 +90,5 @@ target_compile_options( raft
 endif()
 
 install( TARGETS raft
+         LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
          ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib )
